@@ -10,8 +10,30 @@
 #include <algorithm>
 #include <cstdint>
 
+#include <fstream>
+
 #define GLFW_INCLUDE_VULKAN
 #include <GLFW/glfw3.h>
+
+static std::vector<char> readFile(const std::string& filename) {
+	// Read file starting from end of file in binary format
+	std::ifstream file(filename, std::ios::ate | std::ios::binary);
+
+	if (!file.is_open()) {
+		throw std::runtime_error("failed to open file!");
+	}
+
+	size_t fileSize = (size_t)file.tellg();
+	std::vector<char> buffer(fileSize);
+
+	// Seek to the beginning of the file and read
+	file.seekg(0);
+	file.read(buffer.data(), fileSize);
+
+	file.close();
+
+	return buffer;
+}
 
 VkResult CreateDebugUtilsMessengerEXT(VkInstance instance,
 	const VkDebugUtilsMessengerCreateInfoEXT* pCreateInfo,
