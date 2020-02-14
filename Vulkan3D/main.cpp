@@ -971,7 +971,7 @@ private:
 			drawFrame();
 		}
 
-		//vkDeviceWaitIdle(device);
+		vkDeviceWaitIdle(device);
 	}
 
 	void cleanUp() {
