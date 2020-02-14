@@ -930,6 +930,8 @@ private:
 		presentInfo.pResults = nullptr; // Optional
 
 		vkQueuePresentKHR(presentQueue, &presentInfo);
+
+		vkQueueWaitIdle(presentQueue);
 	}
 
 	void mainLoop() {
